@@ -1,26 +1,26 @@
 node {
    
    stage('Code Checkout') { 
-     git credentialsId: 'githubID', url: 'https://github.com/itrainbatman/maven-examples.git'
+     git credentialsId: 'githubID', url: 'https://github.com/devopsprojects-2019/PipelineGitorg.git'
      
     }
    stage('Build') {
-    withMaven(jdk: 'JDK-1.8', maven: 'Maven-3.6.1') {
+    withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') {
       sh 'mvn clean compile'
       }
     }
    stage('Unit Test run') {
-    withMaven(jdk: 'JDK-1.8', maven: 'Maven-3.6.1') {
+    withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') {
      sh 'mvn test'
       } 
     }
    stage('Sonar CodeAnalysis') {
-     withMaven(jdk: 'JDK-1.8', maven: 'Maven-3.6.1') {
-        sh 'mvn sonar:sonar -Dsonar.projectKey=maven_apps -Dsonar.organization=itrainbatman -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=0767bb0a33926d7ea765c0ef95c6f8d67cdd5987'
+     withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') {
+        sh 'mvn sonar:sonar -Dsonar.projectKey=com.project1 -Dsonar.organization=devaws2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=804b22d2f0ef236221e7b265ec65ea364988b776'
       }  
     }
    stage('Package to Jfrog') {
-    withMaven(jdk: 'JDK-1.8', maven: 'Maven-3.6.1') {
+    withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') {
      sh 'mvn package'
       }
     }
