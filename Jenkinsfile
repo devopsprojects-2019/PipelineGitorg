@@ -21,7 +21,7 @@ node {
     withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') {
     sh 'mvn sonar:sonar' 
       }
-   
+   }
    
    stage('Package to Jfrog') {
     withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') {
