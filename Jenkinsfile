@@ -15,9 +15,15 @@ node {
       } 
     }
    
-   stage('Sonarqube analysis'){
-     {
-    withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') {
+   
+stage('Sonarqube analysis'){
+   
+   def scannerHome = tool 'JavaScanner';
+
+   withSonarQubeEnv(credentialsId: 'sonar_qube')
+ {
+    withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') 
+{
     sh 'mvn sonar:sonar' 
       }
    }
