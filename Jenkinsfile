@@ -14,11 +14,15 @@ node {
      sh 'mvn test'
       } 
     }
-   stage('Sonar CodeAnalysis') {
-     withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') {
-        sh 'mvn sonar:sonar -Dsonar.projectKey=devopsprojects-2019_PipelineGitorg -Dsonar.organization=devopsprojects-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=75224bc8a83ba8d8e13a69041cd38be097da9a83'
-      }  
-    }
+   
+   stage('Sonarqube analysis'){
+      def scannerHome = tool 'javascanner';
+   withSonarQubeEnv(credentialsId: 'Sonarqube') {
+    withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') {
+    sh 'mvn sonar:sonar' 
+      }
+   
+   
    stage('Package to Jfrog') {
     withMaven(jdk: 'jdk-1.8', maven: 'maven-3.6') {
      sh 'mvn package'
